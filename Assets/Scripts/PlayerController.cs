@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Tooltip("Inputs")]
+    [Tooltip("References")]
     public InputActionReference moveAction;
     public InputActionReference shootAction;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnAnchor;
 
     [Tooltip("Stats")]
     public float movementSpeed = 1.0f;
@@ -16,13 +19,23 @@ public class PlayerController : MonoBehaviour
     public float screenWidth = 1f;
     public float screenHeight = 2f;
 
+    [Tooltip("Events")]
+    public UnityEvent onDeath;
+    public UnityEvent onTakeDamage;
+    public UnityEvent onShoot;
+
     private float shootCooldownTimer = 0f;
+    private GameManager gm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction.action.Enable();
         shootAction.action.Enable();
+
+        gm = FindFirstObjectByType<GameManager>();
+        if (!gm)
+            Debug.LogWarning("PlayerController: No Game Manager found in scene");
     }
 
     // Update is called once per frame
@@ -48,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         livesRemaining -= dmg;
         Debug.Log("Lives Remaining: " + livesRemaining);
+        onTakeDamage.Invoke();
         if (livesRemaining <= 0)
         {
             endGame();
@@ -59,6 +73,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("You died, game over");
         moveAction.action.Disable();
         shootAction.action.Disable();
+        onDeath.Invoke();
         Destroy(gameObject);
     }
 
@@ -66,6 +81,9 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Shooting!");
         shootCooldownTimer = 0f;
+        if (bulletPrefab)
+            Instantiate(bulletPrefab, bulletSpawnAnchor.position, bulletSpawnAnchor.rotation);
+        onShoot.Invoke();
         return;
     }
 
