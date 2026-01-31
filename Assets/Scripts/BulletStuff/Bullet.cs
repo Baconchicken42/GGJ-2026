@@ -9,18 +9,22 @@ namespace BulletStuff
         public float bulletLife = 1f; // Defines how long before the bullet is destroyed
         public float rotation = 0f;
         public float speed = 1f;
+        public int damageAmt = 1;
         
         [SerializeField] private SpriteRenderer bulletSprite;
 
         private Vector2 spawnPoint;
         private float timer = 0f;
 
-        public static UnityAction OnHitPlayer;
-        public static UnityAction OnHitBoss;
+        private GameManager gMan;
 
         void OnEnable()
         {
             BulletSpawner.OnInstantiateBullet += SetUpBullet;
+            
+            gMan = GameManager.Instance;
+            if (!gMan)
+                Debug.LogError("No GameManager found!");
             
             spawnPoint = new Vector2(transform.position.x, transform.position.y);
         }
@@ -42,10 +46,10 @@ namespace BulletStuff
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
-                OnHitPlayer?.Invoke();
+                gMan.player.takeDamage(damageAmt);
             
             if (other.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
-                OnHitBoss?.Invoke();
+                gMan.boss.takeDamage(damageAmt);
             
             Destroy(gameObject);
         }
@@ -61,8 +65,8 @@ namespace BulletStuff
             }
 
             // Moves right according to the bullet's rotation
-            float x = timer * speed * transform.right.x;
-            float y = timer * speed * transform.right.y;
+            float x = timer * speed * transform.up.x * -1f;
+            float y = timer * speed * transform.up.y * -1f;
             return new Vector2(x + spawnPoint.x, y + spawnPoint.y);
         }
 

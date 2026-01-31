@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,6 +6,7 @@ public class Boss : MonoBehaviour
 {
     [Tooltip("References")]
     public Transform patternSpawnAnchor;
+    public List<GameObject> BulletSpawners;
 
     [Tooltip("Stats")]
     public int health = 10000;
@@ -17,17 +19,19 @@ public class Boss : MonoBehaviour
     public UnityEvent onEnterPhase2;
     public UnityEvent onEnterPhase3;
     public UnityEvent onDeath;
-
-
+    
     private int phase = 1;
     private GameManager gm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gm = FindFirstObjectByType<GameManager>();
+        gm = GameManager.Instance;
         if (!gm)
             Debug.LogWarning("Boss: No Game Manager found in scene");
+        
+        foreach (GameObject spawner in BulletSpawners) 
+            spawner.SetActive(spawner == BulletSpawners[0]); //phase 1
     }
 
     // Update is called once per frame
@@ -36,11 +40,11 @@ public class Boss : MonoBehaviour
         //TODO: shooting logic, animations?
         if (phase == 1)
         {
-
+            
         }
         else if (phase == 2)
         {
-
+            
         }
         else if (phase == 3)
         {
@@ -75,6 +79,9 @@ public class Boss : MonoBehaviour
         phase = 2;
         onEnterPhase2.Invoke();
         //TODO: Trigger Animations and Stuff
+        
+        foreach (GameObject spawner in BulletSpawners)
+            spawner.SetActive(spawner == BulletSpawners[1]);
     }
 
     private void enterPhase3()
@@ -82,6 +89,9 @@ public class Boss : MonoBehaviour
         phase = 3;
         onEnterPhase3.Invoke();
         //TODO: Trigger Animations and Stuff
+        
+        foreach (GameObject spawner in BulletSpawners)
+            spawner.SetActive(spawner == BulletSpawners[2]);
     }
 
     private void die()
