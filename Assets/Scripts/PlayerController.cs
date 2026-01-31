@@ -10,10 +10,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Stats")]
     public float movementSpeed = 1.0f;
     public int livesRemaining = 3;
+    public float shootCooldownSeconds = .2f;
 
     [Tooltip("Screen Size")]
     public float screenWidth = 1f;
     public float screenHeight = 2f;
+
+    private float shootCooldownTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,13 +28,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //movement
         Vector2 moveDir = moveAction.action.ReadValue<Vector2>();
-
+        
         transform.position += new Vector3(moveDir.x, moveDir.y, 0) * Time.deltaTime * movementSpeed;
+        //clamp player pos within screen bounds
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -screenWidth, screenWidth), Mathf.Clamp(transform.position.y, -screenHeight, screenHeight));
 
+        shootCooldownTimer += Time.deltaTime;
 
+        if (shootAction.action.IsPressed() && shootCooldownTimer >= shootCooldownSeconds)
+        {
+            shoot();
+        }
         
     }
 
@@ -56,6 +65,7 @@ public class PlayerController : MonoBehaviour
     private void shoot()
     {
         Debug.Log("Shooting!");
+        shootCooldownTimer = 0f;
         return;
     }
 
