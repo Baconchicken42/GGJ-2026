@@ -16,6 +16,7 @@ namespace BulletStuff
         private float timer = 0f;
 
         public static UnityAction OnHitPlayer;
+        public static UnityAction OnHitBoss;
 
         void OnEnable()
         {
@@ -40,13 +41,15 @@ namespace BulletStuff
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.tag.Equals("Player") || gameObject.tag.Equals("PlayerBullet")) 
-                return;
+            if (other.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
+            {
+                OnHitPlayer?.Invoke();
+                
+                Destroy(gameObject);
+            }
             
-            //TODO: ADD HEALTH/DAMAGE STUFF HERE
-            OnHitPlayer?.Invoke();
+            //TODO: ADD BOSS DAMAGE STUFF 
             
-            Destroy(gameObject);
         }
 
         private Vector2 Movement(float timer)
