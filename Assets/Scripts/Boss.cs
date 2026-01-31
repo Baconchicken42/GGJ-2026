@@ -58,6 +58,7 @@ public class Boss : MonoBehaviour
     public void takeDamage(int dmg)
     {
         health -= dmg;
+        //TODO: damage effect
         onTakeDamage.Invoke();
         Debug.Log("Boss Health Remaining: " + health);
 
