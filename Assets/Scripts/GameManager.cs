@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [Tooltip("References")]
     public PlayerController player;
+    public Boss boss;
     public InputActionReference pauseAction;
 
     [Tooltip("Events")]
@@ -22,12 +23,10 @@ public class GameManager : MonoBehaviour
     {
         if (player == null)
         {
-            player = FindFirstObjectByType<PlayerController>();
-            if (player == null)
-            {
-                Debug.Log("Gamemanager: No Player object found");
-            }
+            Debug.LogWarning("Gamemanager: no Player object set");
         }
+        if (boss == null)
+            Debug.LogWarning("Gamemanager: no Boss object set");
 
         pauseAction.action.Enable();
     }
