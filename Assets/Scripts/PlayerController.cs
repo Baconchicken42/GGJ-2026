@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //movement
         Vector2 moveDir = moveAction.action.ReadValue<Vector2>();
