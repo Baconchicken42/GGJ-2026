@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Boss : MonoBehaviour
 {
     [Tooltip("References")]
-    Transform patternSpawnAnchor;
+    public Transform patternSpawnAnchor;
 
     [Tooltip("Stats")]
     public int health = 10000;
