@@ -102,12 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   shootAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  bulletPrefab: {fileID: 0}
-  bulletSpawnAnchor: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  bulletPrefab: {fileID: 1808633228025542590, guid: a74b6751e8cfaa44f83e00fb09b50b3b, type: 3}
+  bulletSpawnAnchor: {fileID: 8409691322538558663}
+  spriteRenderer: {fileID: 9213238039222278378}
   movementSpeed: 10
   livesRemaining: 3
-  shootCooldownSeconds: 0.01
+  shootCooldownSeconds: 0.05
   takeDamageCooldownSeconds: 1.5
   screenWidth: 1
   screenHeight: 2

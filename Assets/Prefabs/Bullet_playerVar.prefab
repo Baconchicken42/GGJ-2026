@@ -17,6 +17,18 @@ PrefabInstance:
       value: PlayerBullet
       objectReference: {fileID: 0}
     - target: {fileID: 5333886070286857702, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333886070286857702, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333886070286857702, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333886070286857702, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -57,8 +69,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7288769383381184296, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: speed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288769383381184296, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288769383381184296, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: bulletLife
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
