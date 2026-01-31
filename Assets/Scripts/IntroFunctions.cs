@@ -1,8 +1,9 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using System.Collections;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class IntroFunctions : MonoBehaviour
 {
@@ -21,26 +22,40 @@ public class IntroFunctions : MonoBehaviour
         
     }
 
+    public void startFade()
+    {
+        StartCoroutine(fade());
+    }
+
+    public void startUnfade()
+    {
+        StartCoroutine(unFade());
+    }
 
     private IEnumerator fade()
     {
         Color c = text.color;
-        for (float alpha = 1f; alpha >= 0; alpha -= .05f)
+        for (float alpha = 1f; alpha >= 0; alpha -= .01f)
         {
             c.a = alpha;
             text.color = c;
-            yield return new WaitForSeconds(.2f);
+            yield return null;
         }
     }
 
     private IEnumerator unFade()
     {
         Color c = text.color;
-        for (float alpha = 0f; alpha <= 1; alpha += .05f)
+        for (float alpha = 0f; alpha <= 1; alpha += .01f)
         {
             c.a = alpha;
             text.color = c;
-            yield return new WaitForSeconds(.2f);
+            yield return null;
         }
+    }
+
+    public void loadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
