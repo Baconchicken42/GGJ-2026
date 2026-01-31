@@ -42,14 +42,12 @@ namespace BulletStuff
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
-            {
                 OnHitPlayer?.Invoke();
-                
-                Destroy(gameObject);
-            }
             
-            //TODO: ADD BOSS DAMAGE STUFF 
+            if (other.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
+                OnHitBoss?.Invoke();
             
+            Destroy(gameObject);
         }
 
         private Vector2 Movement(float timer)
