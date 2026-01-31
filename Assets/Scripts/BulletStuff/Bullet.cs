@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BulletStuff
 {
@@ -13,6 +14,8 @@ namespace BulletStuff
 
         private Vector2 spawnPoint;
         private float timer = 0f;
+
+        public static UnityAction OnHitPlayer;
 
         void OnEnable()
         {
@@ -37,16 +40,25 @@ namespace BulletStuff
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.name.Equals("Player")) 
+            if (!other.tag.Equals("Player") || gameObject.tag.Equals("PlayerBullet")) 
                 return;
             
             //TODO: ADD HEALTH/DAMAGE STUFF HERE
+            OnHitPlayer?.Invoke();
             
             Destroy(gameObject);
         }
 
         private Vector2 Movement(float timer)
         {
+            if (gameObject.tag.Equals("PlayerBullet"))
+            {
+                //Move bullet up for player variant instead - FigJ
+                float xUp = timer * speed * transform.up.x;
+                float yUp = timer * speed * transform.up.y;
+                return new Vector2(xUp + spawnPoint.x, yUp + spawnPoint.y);
+            }
+
             // Moves right according to the bullet's rotation
             float x = timer * speed * transform.right.x;
             float y = timer * speed * transform.right.y;
