@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private GameManager gm;
     private float shootCooldownTimer = 0f;
     private bool canTakeDamage = true;
-    private float takeDamageCooldownTimer = 0f;
+    private float takeDamageCooldownTimer = 100f;
     private bool isFaded = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
