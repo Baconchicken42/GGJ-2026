@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7276353177649447043}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,11 +102,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   shootAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  bulletPrefab: {fileID: 0}
+  bulletSpawnAnchor: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   movementSpeed: 10
   livesRemaining: 3
   shootCooldownSeconds: 0.01
+  takeDamageCooldownSeconds: 1.5
   screenWidth: 1
   screenHeight: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7560990165849129555
 GameObject:
   m_ObjectHideFlags: 0
