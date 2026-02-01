@@ -10,6 +10,7 @@ public class Boss : MonoBehaviour
 
     [Tooltip("Stats")]
     public int health = 10000;
+    public int totalHealth = 10000;
     public int phase2TransitionHealth = 6500;
     public int phase3TransitionHealth = 4000;
 
@@ -19,6 +20,16 @@ public class Boss : MonoBehaviour
     public UnityEvent onEnterPhase2;
     public UnityEvent onEnterPhase3;
     public UnityEvent onDeath;
+
+    [Tooltip("Visual Elements")] 
+    public SpriteRenderer bodySpriteRenderer;
+    public SpriteRenderer head1SpriteRenderer;
+    public SpriteRenderer head2SpriteRenderer;
+    public SpriteRenderer head3SpriteRenderer;
+    public List<Sprite> phase1HeadSprites;
+    public List<Sprite> phase2HeadSprites;
+    public Sprite phase3HeadSprite;
+    
     
     private int phase = 1;
     private GameManager gm;
@@ -30,6 +41,10 @@ public class Boss : MonoBehaviour
         if (!gm)
             Debug.LogWarning("Boss: No Game Manager found in scene");
         
+        head1SpriteRenderer.sprite = phase1HeadSprites[0];
+        head2SpriteRenderer.gameObject.SetActive(false);
+        head3SpriteRenderer.gameObject.SetActive(false);
+        
         foreach (GameObject spawner in BulletSpawners) 
             spawner.SetActive(spawner == BulletSpawners[0]); //phase 1
     }
@@ -40,15 +55,41 @@ public class Boss : MonoBehaviour
         //TODO: shooting logic, animations?
         if (phase == 1)
         {
+            //why won't it let me make this a switch case or something T_T
+            if (health <= totalHealth * 0.90f && health > totalHealth * 0.85f)
+                head1SpriteRenderer.sprite = phase1HeadSprites[1];
+            else if (health <= totalHealth * 0.85f && health > totalHealth * 0.80f)
+                head1SpriteRenderer.sprite = phase1HeadSprites[2];
+            else if (health <= totalHealth * 0.80f && health > totalHealth * 0.75f)
+                head1SpriteRenderer.sprite = phase1HeadSprites[3];
+            else if (health <= totalHealth * 0.75f && health > totalHealth * 0.70f)
+            {
+                head1SpriteRenderer.sprite = phase1HeadSprites[4];
+                head2SpriteRenderer.gameObject.SetActive(true);
+            }
+            else if (health <= totalHealth * 0.70f && health > totalHealth * 0.65f)
+                head1SpriteRenderer.sprite = phase1HeadSprites[5];
             
         }
         else if (phase == 2)
         {
-            
+            if (health <= totalHealth * 0.60f && health > totalHealth * 0.55f)
+                head2SpriteRenderer.sprite = phase2HeadSprites[1];
+            else if (health <= totalHealth * 0.55f && health > totalHealth * 0.50f)
+                head2SpriteRenderer.sprite = phase2HeadSprites[2];
+            else if (health <= totalHealth * 0.50f && health > totalHealth * 0.48f)
+                head2SpriteRenderer.sprite = phase2HeadSprites[3];
+            else if (health <= totalHealth * 0.48f && health > totalHealth * 0.45f)
+            {
+                head2SpriteRenderer.sprite = phase2HeadSprites[4];
+                //enable phase 3 head here
+            }
+            else if (health <= totalHealth * 0.45f && health > totalHealth * 0.40f)
+                head2SpriteRenderer.sprite = phase2HeadSprites[5];
         }
         else if (phase == 3)
         {
-
+            //figure out phase 3 stuff
         }
         
     }
@@ -80,6 +121,9 @@ public class Boss : MonoBehaviour
         onEnterPhase2.Invoke();
         //TODO: Trigger Animations and Stuff
         
+        head1SpriteRenderer.gameObject.SetActive(false);
+        head2SpriteRenderer.sprite = phase2HeadSprites[0];
+        
         foreach (GameObject spawner in BulletSpawners)
             spawner.SetActive(spawner == BulletSpawners[1]);
     }
@@ -89,6 +133,8 @@ public class Boss : MonoBehaviour
         phase = 3;
         onEnterPhase3.Invoke();
         //TODO: Trigger Animations and Stuff
+        
+        head3SpriteRenderer.sprite = phase3HeadSprite; //animations?
         
         foreach (GameObject spawner in BulletSpawners)
             spawner.SetActive(spawner == BulletSpawners[2]);
