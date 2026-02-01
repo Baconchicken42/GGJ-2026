@@ -97,6 +97,7 @@ public class Boss : MonoBehaviour
     private void die()
     {
         Debug.Log("Boss Killed");
+        //TODO: play death animations if any
         onDeath.Invoke();
         Destroy(gameObject);
     }

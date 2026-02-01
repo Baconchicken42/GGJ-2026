@@ -43,15 +43,23 @@ namespace BulletStuff
             transform.position = Movement(timer);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
+            Debug.Log($"OnTriggerEnter2D, my tag is {gameObject.tag}");
+            Debug.Log($"OnTriggerEnter2D, other's tag is {other.gameObject.tag}");
+            
+            if (other.gameObject.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
+            {
                 gMan.player.takeDamage(damageAmt);
-            
-            if (other.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
+                Destroy(gameObject);
+                return;
+            }
+
+            if (other.gameObject.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
+            {
                 gMan.boss.takeDamage(damageAmt);
-            
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
 
         private Vector2 Movement(float timer)

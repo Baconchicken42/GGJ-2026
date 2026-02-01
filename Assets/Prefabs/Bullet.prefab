@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5333886070286857702}
   - component: {fileID: 7288769383381184296}
   - component: {fileID: 3888009663280995097}
+  - component: {fileID: 4712500244129435535}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: EnemyBullet
@@ -49,6 +50,7 @@ MonoBehaviour:
   bulletLife: 5
   rotation: 0
   speed: 1
+  damageAmt: 1
   bulletSprite: {fileID: 3920857451806633361}
 --- !u!61 &3888009663280995097
 BoxCollider2D:
@@ -96,6 +98,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &4712500244129435535
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149365285767928951}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5248918047485121128
 GameObject:
   m_ObjectHideFlags: 0
