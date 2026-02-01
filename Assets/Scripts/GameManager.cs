@@ -83,16 +83,19 @@ public class GameManager : MonoBehaviour
 
     public void loadLevel(int index)
     {
+        resumeGame();
         SceneManager.LoadScene(index);
     }
 
     public void loadLevel(string levelName)
     {
+        resumeGame();
         SceneManager.LoadScene(levelName);
     }
 
     public void loadNextLevel()
     {
+        resumeGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
