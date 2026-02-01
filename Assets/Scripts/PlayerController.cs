@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        var temp = Gamepad.current;
+        Debug.Log(temp);
+
         //movement
         Vector2 moveDir = moveAction.action.ReadValue<Vector2>();
         
