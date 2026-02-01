@@ -28,11 +28,14 @@ public class Boss : MonoBehaviour
     public SpriteRenderer head3SpriteRenderer;
     public List<Sprite> phase1HeadSprites;
     public List<Sprite> phase2HeadSprites;
-    public Sprite phase3HeadSprite;
+    public Animator phase3HeadSpriteAnim;
     
     
     private int phase = 1;
     private GameManager gm;
+
+    [SerializeField] 
+    private bool isTestingPhase3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,10 +43,18 @@ public class Boss : MonoBehaviour
         gm = GameManager.Instance;
         if (!gm)
             Debug.LogWarning("Boss: No Game Manager found in scene");
-        
+
         head1SpriteRenderer.sprite = phase1HeadSprites[0];
         head2SpriteRenderer.gameObject.SetActive(false);
         head3SpriteRenderer.gameObject.SetActive(false);
+        
+        if (isTestingPhase3)
+        {
+            head1SpriteRenderer.gameObject.SetActive(false);
+            head3SpriteRenderer.gameObject.SetActive(true);
+            phase = 3; 
+            enterPhase3();
+        }
         
         foreach (GameObject spawner in BulletSpawners) 
             spawner.SetActive(spawner == BulletSpawners[0]); //phase 1
@@ -52,7 +63,19 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //TODO: shooting logic, animations?
+
+        if (isTestingPhase3)
+        {
+            if (health <= totalHealth * 0.90f && health > totalHealth * 0.80f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.indianRed;
+            if (health <= totalHealth * 0.80f && health > totalHealth * 0.70f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.softRed;
+            if (health <= totalHealth * 0.70f && health > totalHealth * 0.60f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.crimson;
+
+            return;
+        }
+
         if (phase == 1)
         {
             //why won't it let me make this a switch case or something T_T
@@ -82,14 +105,21 @@ public class Boss : MonoBehaviour
             else if (health <= totalHealth * 0.48f && health > totalHealth * 0.45f)
             {
                 head2SpriteRenderer.sprite = phase2HeadSprites[4];
-                //enable phase 3 head here
+                head3SpriteRenderer.gameObject.SetActive(true);
             }
             else if (health <= totalHealth * 0.45f && health > totalHealth * 0.40f)
                 head2SpriteRenderer.sprite = phase2HeadSprites[5];
         }
         else if (phase == 3)
         {
-            //figure out phase 3 stuff
+            if (health <= totalHealth * 0.35f && health > totalHealth * 0.25f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.indianRed;
+
+            if (health <= totalHealth * 0.25f && health > totalHealth * 0.15f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.softRed;
+
+            if (health <= totalHealth * 0.25f && health > totalHealth * 0.15f)
+                head3SpriteRenderer.color = bodySpriteRenderer.color = Color.crimson;
         }
         
     }
@@ -134,7 +164,8 @@ public class Boss : MonoBehaviour
         onEnterPhase3.Invoke();
         //TODO: Trigger Animations and Stuff
         
-        head3SpriteRenderer.sprite = phase3HeadSprite; //animations?
+        head2SpriteRenderer.gameObject.SetActive(false);
+        phase3HeadSpriteAnim.enabled = true;
         
         foreach (GameObject spawner in BulletSpawners)
             spawner.SetActive(spawner == BulletSpawners[2]);
