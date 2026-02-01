@@ -87,7 +87,8 @@ namespace BulletStuff
             speed = setSpeed;
             bulletLife = setLife;
             
-            bulletSprite.color = setColor;
+            //commenting out for now for new sprites
+            //bulletSprite.color = setColor;
         }
     }
 }
