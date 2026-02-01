@@ -195,7 +195,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1071523155210718792, guid: 5df24de5c5ec9964f82ae35132413d39, type: 3}
+  m_Sprite: {fileID: 3631311224200100833, guid: 442c28f9ff70ddf41b57b881de80df10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -377,6 +377,7 @@ MonoBehaviour:
   - {fileID: -1387444829794466299, guid: ed08e2eb57468dd4392b5a6612c061c6, type: 3}
   - {fileID: -1832598964700223068, guid: 34ce50eebdda30841887710093c5a176, type: 3}
   phase3HeadSpriteAnim: {fileID: 5425080277747599762}
+  isTestingPhase3: 0
 --- !u!61 &3912517798486853868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -611,7 +612,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.35, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7246059201036179102}
@@ -665,7 +666,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3940204485603445088, guid: 86e6d86519d0dc84bac4ec79e747cc79, type: 3}
+  m_Sprite: {fileID: 3631311224200100833, guid: 442c28f9ff70ddf41b57b881de80df10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

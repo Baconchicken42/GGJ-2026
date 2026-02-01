@@ -63,7 +63,6 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (isTestingPhase3)
         {
             if (health <= totalHealth * 0.90f && health > totalHealth * 0.80f)
@@ -165,6 +164,7 @@ public class Boss : MonoBehaviour
         //TODO: Trigger Animations and Stuff
         
         head2SpriteRenderer.gameObject.SetActive(false);
+        head3SpriteRenderer.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         phase3HeadSpriteAnim.enabled = true;
         
         foreach (GameObject spawner in BulletSpawners)
