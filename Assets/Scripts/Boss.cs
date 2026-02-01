@@ -63,7 +63,6 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (isTestingPhase3)
         {
             if (health <= totalHealth * 0.90f && health > totalHealth * 0.80f)

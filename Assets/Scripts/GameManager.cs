@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float newAlpha = Mathf.Abs(boss.health - boss.totalHealth) * 0.0001f;
+        float newAlpha = Mathf.Abs(boss.health - boss.totalHealth) * 0.00015f;
         skyGradient.color = new Color(1,1,1, newAlpha);
     }
 
@@ -98,7 +98,11 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-
+    public void QuitToMainMenu()
+    {
+        loadLevel(0);
+    }
+    
     public void pauseGame()
     {
         Time.timeScale = 0;
