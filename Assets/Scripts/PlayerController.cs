@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Events")]
     public UnityEvent onDeath;
-    public UnityEvent onTakeDamage;
+    public static UnityEvent onTakeDamage = new UnityEvent();
     public UnityEvent onShoot;
 
     private GameManager gm;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log("Timing debugging: PlayerController Start");
         moveAction.action.Enable();
         shootAction.action.Enable();
 

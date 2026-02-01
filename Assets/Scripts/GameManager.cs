@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,6 +15,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Events")]
     public UnityEvent onPause;
     public UnityEvent onResume;
+    
+    [Header("HUD Elements")]
+    [SerializeField] private List<GameObject> playerLives = new List<GameObject>();
 
 
     private bool isGamePaused;
@@ -23,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Timing debugging: GameManager Awake");
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -34,16 +40,24 @@ public class GameManager : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
+        Debug.Log("Timing debugging: GameManager Start");
         if (player == null)
         {
             Debug.LogWarning("Gamemanager: no Player object set");
         }
         if (boss == null)
             Debug.LogWarning("Gamemanager: no Boss object set");
+        
+        PlayerController.onTakeDamage.AddListener(UpdatePlayerLifeCountUI);
 
         pauseAction.action.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        PlayerController.onTakeDamage.RemoveListener(UpdatePlayerLifeCountUI);
     }
 
     private void Update()
@@ -93,5 +107,10 @@ public class GameManager : MonoBehaviour
         onResume.Invoke();
         Debug.Log("Game Resumed!");
     }
-    
+
+    private void UpdatePlayerLifeCountUI()
+    {
+        playerLives[player.livesRemaining].transform.GetChild(0).gameObject.SetActive(false);
+    }
+
 }

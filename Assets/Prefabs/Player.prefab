@@ -55,7 +55,7 @@ MonoBehaviour:
   bulletSpawnAnchor: {fileID: 8409691322538558663}
   spriteRenderer: {fileID: 9213238039222278378}
   movementSpeed: 15
-  livesRemaining: 3
+  livesRemaining: 6
   shootCooldownSeconds: 0.05
   takeDamageCooldownSeconds: 1.5
   screenWidth: 9.49
