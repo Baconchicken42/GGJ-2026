@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
     [Tooltip("References")]
     public Transform patternSpawnAnchor;
     public List<GameObject> BulletSpawners;
+    public AudioSource dmgSFX;
 
     [Tooltip("Stats")]
     public int health = 10000;
@@ -33,6 +34,8 @@ public class Boss : MonoBehaviour
     
     private int phase = 1;
     private GameManager gm;
+
+    private bool dmgSoundHasPlayed = true;
 
     [SerializeField] 
     private bool isTestingPhase3;
@@ -79,35 +82,73 @@ public class Boss : MonoBehaviour
         {
             //why won't it let me make this a switch case or something T_T
             if (health <= totalHealth * 0.90f && health > totalHealth * 0.85f)
+            {
+                if (head1SpriteRenderer.sprite != phase1HeadSprites[1])
+                    dmgSoundHasPlayed = false;
                 head1SpriteRenderer.sprite = phase1HeadSprites[1];
+            }
             else if (health <= totalHealth * 0.85f && health > totalHealth * 0.80f)
+            {
+                if (head1SpriteRenderer.sprite != phase1HeadSprites[2])
+                    dmgSoundHasPlayed = false;
                 head1SpriteRenderer.sprite = phase1HeadSprites[2];
+            }
             else if (health <= totalHealth * 0.80f && health > totalHealth * 0.75f)
+            {
+                if (head1SpriteRenderer.sprite != phase1HeadSprites[3])
+                    dmgSoundHasPlayed = false;
                 head1SpriteRenderer.sprite = phase1HeadSprites[3];
+            }
             else if (health <= totalHealth * 0.75f && health > totalHealth * 0.70f)
             {
+                if (head1SpriteRenderer.sprite != phase1HeadSprites[4])
+                    dmgSoundHasPlayed = false;
+                
                 head1SpriteRenderer.sprite = phase1HeadSprites[4];
                 head2SpriteRenderer.gameObject.SetActive(true);
             }
             else if (health <= totalHealth * 0.70f && health > totalHealth * 0.65f)
+            {
+                if (head1SpriteRenderer.sprite != phase1HeadSprites[5])
+                    dmgSoundHasPlayed = false;
                 head1SpriteRenderer.sprite = phase1HeadSprites[5];
+            }
             
         }
         else if (phase == 2)
         {
             if (health <= totalHealth * 0.60f && health > totalHealth * 0.55f)
+            {
+                if (head2SpriteRenderer.sprite != phase2HeadSprites[1])
+                    dmgSoundHasPlayed = false;
                 head2SpriteRenderer.sprite = phase2HeadSprites[1];
+            }
             else if (health <= totalHealth * 0.55f && health > totalHealth * 0.50f)
+            {
+                if (head2SpriteRenderer.sprite != phase2HeadSprites[2])
+                    dmgSoundHasPlayed = false;
                 head2SpriteRenderer.sprite = phase2HeadSprites[2];
+            }
             else if (health <= totalHealth * 0.50f && health > totalHealth * 0.48f)
+            {
+                if (head2SpriteRenderer.sprite != phase2HeadSprites[3])
+                    dmgSoundHasPlayed = false;
                 head2SpriteRenderer.sprite = phase2HeadSprites[3];
+            }
             else if (health <= totalHealth * 0.48f && health > totalHealth * 0.45f)
             {
+                if (head2SpriteRenderer.sprite != phase2HeadSprites[4])
+                    dmgSoundHasPlayed = false;
+                
                 head2SpriteRenderer.sprite = phase2HeadSprites[4];
                 head3SpriteRenderer.gameObject.SetActive(true);
             }
             else if (health <= totalHealth * 0.45f && health > totalHealth * 0.40f)
+            {
+                if (head2SpriteRenderer.sprite != phase2HeadSprites[5])
+                    dmgSoundHasPlayed = false;
                 head2SpriteRenderer.sprite = phase2HeadSprites[5];
+            }
         }
         else if (phase == 3)
         {
@@ -121,6 +162,7 @@ public class Boss : MonoBehaviour
                 head3SpriteRenderer.color = bodySpriteRenderer.color = Color.crimson;
         }
         
+        PlayDmgSoundInAHackyWay();
     }
 
     private void spawnBulletPattern(GameObject pattern)
@@ -152,6 +194,7 @@ public class Boss : MonoBehaviour
         
         head1SpriteRenderer.gameObject.SetActive(false);
         head2SpriteRenderer.sprite = phase2HeadSprites[0];
+        dmgSFX.Play();
         
         foreach (GameObject spawner in BulletSpawners)
             spawner.SetActive(spawner == BulletSpawners[1]);
@@ -164,6 +207,7 @@ public class Boss : MonoBehaviour
         //TODO: Trigger Animations and Stuff
         
         head2SpriteRenderer.gameObject.SetActive(false);
+        dmgSFX.Play();
         head3SpriteRenderer.transform.localPosition= new Vector3(0, -1.35f, 0);
         head3SpriteRenderer.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         phase3HeadSpriteAnim.enabled = true;
@@ -178,5 +222,16 @@ public class Boss : MonoBehaviour
         //TODO: play death animations if any
         onDeath.Invoke();
         Destroy(gameObject);
+    }
+
+    private void PlayDmgSoundInAHackyWay()
+    {
+        if (dmgSoundHasPlayed == false)
+        {
+            dmgSoundHasPlayed = true;
+            
+            if (!dmgSFX.isPlaying)
+                dmgSFX.Play();
+        }
     }
 }
