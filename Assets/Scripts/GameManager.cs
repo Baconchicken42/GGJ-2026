@@ -74,8 +74,11 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float newAlpha = Mathf.Abs(boss.health - boss.totalHealth) * 0.00015f;
-        skyGradient.color = new Color(1,1,1, newAlpha);
+        if (boss)
+        {
+            float newAlpha = Mathf.Abs(boss.health - boss.totalHealth) * 0.00015f;
+            skyGradient.color = new Color(1, 1, 1, newAlpha);
+        }
     }
 
     public void loadLevel(int index)

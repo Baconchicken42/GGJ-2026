@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PlayerBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 1237216418413582895, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_Pitch
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237216418413582895, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: Priority
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237216418413582895, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_Volume
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237216418413582895, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: ed5ca4d97b0eb454d8217d2e4dd55968, type: 3}
     - target: {fileID: 3920857451806633361, guid: d8180647d61c8154c8e3ae4aa844ef78, type: 3}
       propertyPath: m_Sprite
       value: 
