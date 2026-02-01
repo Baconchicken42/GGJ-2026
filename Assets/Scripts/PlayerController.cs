@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnAnchor;
     public SpriteRenderer spriteRenderer;
+    public AudioSource playerDmgSound;
 
     [Tooltip("Stats")]
     public float movementSpeed = 1.0f;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
         livesRemaining -= dmg;
         Debug.Log("Lives Remaining: " + livesRemaining);
+        playerDmgSound.Play();
         canTakeDamage = false;
         takeDamageCooldownTimer = 0f;
         onTakeDamage.Invoke();
