@@ -134,7 +134,7 @@ public class Boss : MonoBehaviour
         health -= dmg;
         //TODO: damage effect
         onTakeDamage.Invoke();
-        Debug.Log("Boss Health Remaining: " + health);
+        //Debug.Log("Boss Health Remaining: " + health);
 
         if (phase == 1 && health <= phase2TransitionHealth)
             enterPhase2();
