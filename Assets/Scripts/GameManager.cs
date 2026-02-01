@@ -18,10 +18,9 @@ public class GameManager : MonoBehaviour
     
     [Header("HUD Elements")]
     [SerializeField] private List<GameObject> playerLives = new List<GameObject>();
-
+    [SerializeField] private SpriteRenderer skyGradient;
 
     private bool isGamePaused;
-
 
     private static GameManager _instance;
     public static GameManager Instance {  get { return _instance; } }
@@ -53,6 +52,8 @@ public class GameManager : MonoBehaviour
         PlayerController.onTakeDamage.AddListener(UpdatePlayerLifeCountUI);
 
         pauseAction.action.Enable();
+
+        skyGradient.color = new Color(1, 1, 1, 0f);
     }
 
     private void OnDestroy()
@@ -69,6 +70,12 @@ public class GameManager : MonoBehaviour
             else
                 pauseGame();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        float newAlpha = Mathf.Abs(boss.health - boss.totalHealth) * 0.0001f;
+        skyGradient.color = new Color(1,1,1, newAlpha);
     }
 
     public void loadLevel(int index)
