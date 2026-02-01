@@ -164,6 +164,7 @@ public class Boss : MonoBehaviour
         //TODO: Trigger Animations and Stuff
         
         head2SpriteRenderer.gameObject.SetActive(false);
+        head3SpriteRenderer.transform.localPosition= new Vector3(0, -1.35f, 0);
         head3SpriteRenderer.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         phase3HeadSpriteAnim.enabled = true;
         
