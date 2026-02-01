@@ -131,18 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4311932875101760157, guid: 0390c635f8b969940b4ccd218f922be5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7276353177649447043, guid: 0390c635f8b969940b4ccd218f922be5, type: 3}
-      propertyPath: screenWidth
-      value: 9.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 7276353177649447043, guid: 0390c635f8b969940b4ccd218f922be5, type: 3}
-      propertyPath: screenHeight
-      value: 14.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7971151371532282761, guid: 0390c635f8b969940b4ccd218f922be5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
