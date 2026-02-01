@@ -9,18 +9,22 @@ namespace BulletStuff
         public float bulletLife = 1f; // Defines how long before the bullet is destroyed
         public float rotation = 0f;
         public float speed = 1f;
+        public int damageAmt = 1;
         
         [SerializeField] private SpriteRenderer bulletSprite;
 
         private Vector2 spawnPoint;
         private float timer = 0f;
 
-        public static UnityAction OnHitPlayer;
-        public static UnityAction OnHitBoss;
+        private GameManager gMan;
 
         void OnEnable()
         {
             BulletSpawner.OnInstantiateBullet += SetUpBullet;
+            
+            gMan = GameManager.Instance;
+            if (!gMan)
+                Debug.LogError("No GameManager found!");
             
             spawnPoint = new Vector2(transform.position.x, transform.position.y);
         }
@@ -39,15 +43,23 @@ namespace BulletStuff
             transform.position = Movement(timer);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
-                OnHitPlayer?.Invoke();
+            Debug.Log($"OnTriggerEnter2D, my tag is {gameObject.tag}");
+            Debug.Log($"OnTriggerEnter2D, other's tag is {other.gameObject.tag}");
             
-            if (other.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
-                OnHitBoss?.Invoke();
-            
-            Destroy(gameObject);
+            if (other.gameObject.tag.Equals("Player") && gameObject.tag.Equals("EnemyBullet"))
+            {
+                gMan.player.takeDamage(damageAmt);
+                Destroy(gameObject);
+                return;
+            }
+
+            if (other.gameObject.tag.Equals("EnemyBoss") && gameObject.tag.Equals("PlayerBullet"))
+            {
+                gMan.boss.takeDamage(damageAmt);
+                Destroy(gameObject);
+            }
         }
 
         private Vector2 Movement(float timer)
@@ -61,8 +73,8 @@ namespace BulletStuff
             }
 
             // Moves right according to the bullet's rotation
-            float x = timer * speed * transform.right.x;
-            float y = timer * speed * transform.right.y;
+            float x = timer * speed * transform.up.x * -1f;
+            float y = timer * speed * transform.up.y * -1f;
             return new Vector2(x + spawnPoint.x, y + spawnPoint.y);
         }
 
@@ -75,7 +87,8 @@ namespace BulletStuff
             speed = setSpeed;
             bulletLife = setLife;
             
-            bulletSprite.color = setColor;
+            //commenting out for now for new sprites
+            //bulletSprite.color = setColor;
         }
     }
 }

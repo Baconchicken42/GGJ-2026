@@ -8,7 +8,8 @@ public class BulletSpawner : MonoBehaviour
     enum SpawnerType
     {
         Straight, 
-        Spin
+        Spin, 
+        SpinReversed
     }
     
     [Header("Bullet Attributes")]
@@ -31,6 +32,8 @@ public class BulletSpawner : MonoBehaviour
         timer += Time.deltaTime;
         if (spawnerType == SpawnerType.Spin) 
             transform.eulerAngles = new Vector3(0f,0f,transform.eulerAngles.z+1f);
+        if (spawnerType == SpawnerType.SpinReversed) 
+            transform.eulerAngles = new Vector3(0f,0f,transform.eulerAngles.z-1f);
         
         if (timer >= firingRate) 
         {

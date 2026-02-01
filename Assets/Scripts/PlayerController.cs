@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Events")]
     public UnityEvent onDeath;
-    public UnityEvent onTakeDamage;
+    public static UnityEvent onTakeDamage = new UnityEvent();
     public UnityEvent onShoot;
 
     private GameManager gm;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log("Timing debugging: PlayerController Start");
         moveAction.action.Enable();
         shootAction.action.Enable();
 
@@ -125,11 +126,11 @@ public class PlayerController : MonoBehaviour
     private IEnumerator fade()
     {
         Color c = spriteRenderer.color;
-        for (float alpha = 1f; alpha >= 0; alpha -= .05f)
+        for (float alpha = 1f; alpha >= 0; alpha -= .01f)
         {
             c.a = alpha;
             spriteRenderer.color = c;
-            yield return new WaitForSeconds(.2f);
+            yield return null;
         }
         isFaded = true;
     }
@@ -137,11 +138,11 @@ public class PlayerController : MonoBehaviour
     private IEnumerator unFade()
     {
         Color c = spriteRenderer.color;
-        for (float alpha = 0f; alpha<= 1; alpha += .05f)
+        for (float alpha = 0f; alpha<= 1; alpha += .01f)
         {
             c.a = alpha;
             spriteRenderer.color = c;
-            yield return new WaitForSeconds(.2f);
+            yield return null;
         }
         isFaded = false;
     }
