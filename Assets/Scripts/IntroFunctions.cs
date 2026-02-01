@@ -8,18 +8,22 @@ using UnityEngine.SceneManagement;
 public class IntroFunctions : MonoBehaviour
 {
     public TMP_Text text;
-
+    public InputActionReference skipAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         text.color = new Color(1, 1, 1, 0);
+        skipAction.action.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (skipAction.action.WasPressedThisFrame())
+        {
+            loadNextLevel();
+        }
     }
 
     public void startFade()
